@@ -1,0 +1,13 @@
+#!/usr/bin/env ansible-playbook
+---
+
+- name: Check php-fpm process
+  shell: ps -A | grep php-fpm
+  register: php_process
+  changed_when: false
+
+- name: Print php-fpm process
+  debug:
+    msg: "{{ php_process.stdout_lines }}"
+
+# vim: ft=ansible :

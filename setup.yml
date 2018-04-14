@@ -1,7 +1,8 @@
 #!/usr/bin/env ansible-playbook
 ---
 
-- hosts: all
+- name: Setup the php7-fpm
+  hosts: all
   become: true
 
   vars_files:
@@ -11,43 +12,15 @@
     - chusiang.vim-and-vi-mode
 
   tasks:
-    - name: rename hostname
-      hostname:
-        name: "{{ ansible_distribution|lower }}-{{ ansible_distribution_version }}"
-      when:
-        - ansible_virtualization_type != 'docker'
-        - debug_mode == true
-      tags: debug
-
-    - name: include vars for debian
+    - name: Include vars for debian
       include_vars: "vars/debian.yml"
       when: ansible_distribution|lower == "debian"
 
-    - name: include main tasks
-      include: tasks/main.yml
-
-    - name: restart php-fpm on ubuntu
-      service: name=php{{ apt_php_version }}-fpm state=restarted
-      when: ansible_distribution|lower == "ubuntu"
-
-    - name: restart php-fpm on debian
-      service: name=php{{ apt_php_version }}-fpm state=restarted
-      when: ansible_distribution|lower == "debian"
-
-    - name: restart php-fpm on centos
-      service: name=php-fpm state=restarted
-      when: ansible_distribution|lower == "centos"
-
-    - name: check process
-      shell: ps -A | grep php-fpm
-      register: php_process
-      changed_when: false
-
-    - name: print process
-      debug:
-        msg: "{{ php_process.stdout_lines }}"
+    - name: Include main tasks
+      import_tasks: tasks/main.yml
 
   handlers:
-    - include: handlers/main.yml
+    - name: Include handlers tasks
+      import_tasks: handlers/main.yml
 
 # vim: ft=ansible :

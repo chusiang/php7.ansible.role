@@ -5,7 +5,7 @@
 #################
 
 - name: "==> Setting php-fpm on Debian system"
-  include: php-fpm-ubuntu.yml
+  include_tasks: php-fpm-ubuntu.yml
   when: ansible_pkg_mgr == "apt"
 
 # CentOS
@@ -16,7 +16,7 @@
 #  when: php_in_selinux is defined and php_in_selinux == true
 
 - name: "==> Setting php-fpm on RHEL system"
-  include: php-fpm-centos.yml
+  include_tasks: php-fpm-centos.yml
   when: ansible_pkg_mgr == "yum"
 
 # vim:ft=ansible :

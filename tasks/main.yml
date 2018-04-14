@@ -1,12 +1,20 @@
 #!/usr/bin/env ansible-playbook
 ---
 
-- name: run setup stage
-  include: setup.yml
+- name: "=> Enter setup stage"
+  import_tasks: setup.yml
   tags: setup
 
-- name: run configure stage
-  include: configure.yml
+- name: "=> Enter configure stage"
+  import_tasks: configure.yml
   tags: config
 
-## vim:ft=ansible :
+- name: "=> Trigger handlers"
+  meta: flush_handlers
+  tags: setup
+
+- name: "=> Enter verify stage"
+  import_tasks: verify.yml
+  tags: verify
+
+# vim: ft=ansible :
