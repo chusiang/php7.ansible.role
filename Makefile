@@ -1,6 +1,6 @@
 .PHONY: main init check boot run clean
 
-main: check
+main: check lint_check
 
 init:
 	if [ ! -d "ansible-retry" ]; then mkdir "ansible-retry"; fi
@@ -8,6 +8,9 @@ init:
 
 check:
 	ansible-playbook --syntax-check setup*.yml
+
+lint_check:
+	ansible-lint setup*.yml
 
 boot:
 	vagrant up

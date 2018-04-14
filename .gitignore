@@ -6,5 +6,4 @@ ansible.cfg
 
 # docker build
 builds/*/output.log
-tests/*/output.log
-
+tests/output*.log
