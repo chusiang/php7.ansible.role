@@ -6,17 +6,17 @@ An Ansible role of Deploy PHP 7 (php-fpm) for Nginx. (forked from [itcraftsmanpl
 
 * Current PHP7 version:
 
- * Debian & Ubuntu: **7.0.29**
- * CentOS: **7.0.5**
+  * Debian & Ubuntu: **7.0.29**
+  * CentOS: **7.0.28**
 
 * Support Linux distributions:
 
- 1. Ubuntu 16.04 (xenial)
- 1. Ubuntu 14.04 (trusty)
- 1. Debian 8 (jessie)
- 1. Debian 9 (stretch)
- 1. CentOS 6
- 1. CentOS 7  
+  1. Ubuntu 16.04 (xenial)
+  1. Ubuntu 14.04 (trusty)
+  1. Debian 8 (jessie)
+  1. Debian 9 (stretch)
+  1. CentOS 6
+  1. CentOS 7  
 
 ## Requirements
 
