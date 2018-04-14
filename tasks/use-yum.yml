@@ -3,7 +3,7 @@
 #  Author: Chu-Siang Lai / chusiang (at) drx.tw
 #  Blog: http://note.drx.tw
 #  Filename: use-yum.yml
-#  Modified: 2018-04-14 23:14
+#  Modified: 2018-04-15 01:18
 #  Description: Setup PHP7 on CentOS 6, 7.
 #  Reference:
 #
@@ -13,60 +13,29 @@
 # ============================================================
 ---
 
-# before install.
-- name: install requires package for use yum module
+- name: Install requires package with yum
   become: true
   yum:
-    name: libselinux-python
-    state: present
-  when: ansible_pkg_mgr == "yum"
+    name: "{{ item }}"
+  with_items:
+    - libselinux-python
+    - epel-release
 
-- name: Install epel from remote repo on CentOS 6
+- name: Install the remi and ius repo from remote repo
   become: true
   yum:
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
-    state: present
-  when: ansible_distribution_major_version == "6"
+    name: "{{ item }}"
+  with_items:
+    - "http://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
+    -  "https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
 
-- name: Install remi from remote repo on CentOS 6
-  become: true
-  yum:
-    name: http://rpms.remirepo.net/enterprise/remi-release-6.rpm
-    state: present
-  when: ansible_distribution_major_version == "6"
-
-- name: Install epel from remote repo on CentOS 7
-  become: true
-  yum:
-    name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    state: present
-  when: ansible_distribution_major_version == "7"
-
-- name: Install remi from remote repo on CentOS 7
-  become: true
-  yum:
-    name: http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-    state: present
-  when: ansible_distribution_major_version == "7"
-
-- name: get ius repo install script
-  get_url:
-    url: https://setup.ius.io/
-    dest: /tmp/setup-ius.sh
-
-- name: Install ius from remote repo
-  become: true
-  command: bash /tmp/setup-ius.sh
-
-# Upgrade all packages.
-- name: upgrade all packages
+- name: Upgrade all packages
   become: true
   yum:
     name: "*"
     state: latest
 
-# Install PHP7 packages.
-- name: Install PHP Packages
+- name: Install PHP 7 Packages
   become: true
   yum:
     name: "{{ item }}"
