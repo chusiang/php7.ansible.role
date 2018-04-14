@@ -4,30 +4,35 @@
 # before install.
 - name: Install requires package for apt module
   become: true
-  apt: name=python-apt state=present
+  apt:
+    name: python-apt
+    state: present
 
 - block:
 
   - name: Add third-party repository on Debian
     become: true
-    apt_repository: >
-      repo="deb {{ debian_php7_apt_repo }} {{ ansible_distribution_release }} all"
-      state=present
+    apt_repository:
+      repo: "deb {{ debian_php7_apt_repo }} {{ ansible_distribution_release }} all"
+      state: present
     when:
       - ansible_distribution|lower == "debian"
       - ansible_distribution_major_version < "9"
-  
+
   - name: Add apt key on Debian
     become: true
-    apt_key: url={{ debian_php7_apt_key }} state=present
+    apt_key:
+      url: "{{ debian_php7_apt_key }}"
+      state: present
     when:
       - ansible_distribution|lower == "debian"
       - ansible_distribution_major_version < "9"
-  
+
   - name: Add third-party repository on Ubuntu
     become: true
-    apt_repository: repo={{ ubuntu_php7_ppa_repo }}
-    when: 
+    apt_repository:
+      repo: "{{ ubuntu_php7_ppa_repo }}"
+    when:
       - ansible_distribution|lower == "ubuntu"
 
   when: apt_php_third_party_repo == true
@@ -46,4 +51,4 @@
   notify:
     - restart php7-fpm
 
-# vim:ft=ansible :
+# vim: ft=ansible :

@@ -1,30 +1,22 @@
 #!/usr/bin/env ansible-playbook
 ---
 
-- debug: msg="=> Enter configure stage"
+# Debian & Ubuntu
+#################
 
-# Debian & Ubuntu.
-- stat: path=/etc/php/{{ apt_php_version }}/fpm/php.ini
-  register: phpfpm_ubuntu
+- name: "==> Setting php-fpm on Debian system"
+  include: php-fpm-ubuntu.yml
+  when: ansible_pkg_mgr == "apt"
 
-- include: php-fpm-ubuntu.yml
-  when: phpfpm_ubuntu.stat.exists
+# CentOS
+########
 
-- stat: path=/etc/php/{{ apt_php_version }}/cli/php.ini
-  register: phpcli_ubuntu
-
-- include: php-cli-ubuntu.yml
-  when: phpcli_ubuntu.stat.exists
-
-# CentOS.
 #- name: delegate to SELINUX handling subtask, if necessary
 #  include: set-selinux.yml
 #  when: php_in_selinux is defined and php_in_selinux == true
 
-- stat: path=/etc/php-fpm.conf
-  register: phpfpm_centos
+- name: "==> Setting php-fpm on RHEL system"
+  include: php-fpm-centos.yml
+  when: ansible_pkg_mgr == "yum"
 
-- include: php-fpm-centos.yml
-  when: phpfpm_centos.stat.exists
-
-## vim:ft=ansible :
+# vim:ft=ansible :

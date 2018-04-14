@@ -12,7 +12,7 @@
 
   tasks:
     - name: rename hostname
-      hostname: 
+      hostname:
         name: "{{ ansible_distribution|lower }}-{{ ansible_distribution_version }}"
       when:
         - ansible_virtualization_type != 'docker'
@@ -41,6 +41,7 @@
     - name: check process
       shell: ps -A | grep php-fpm
       register: php_process
+      changed_when: false
 
     - name: print process
       debug:
@@ -49,4 +50,4 @@
   handlers:
     - include: handlers/main.yml
 
-# vim:ft=ansible :
+# vim: ft=ansible :

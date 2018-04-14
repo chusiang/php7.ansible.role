@@ -1,7 +1,8 @@
 #!/usr/bin/env ansible-playbook
 ---
 
-- debug: msg="==> Setting php-fpm on Debian system"
+# fpm
+#####
 
 # setting the php.ini .
 - name: Set the php.ini
@@ -15,25 +16,40 @@
 
 # setting the www.conf .
 - name: Set permissions on socket - owner
-  lineinfile: >
-    dest=/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf
-    regexp='^;?listen.owner'
-    line='listen.owner = {{ php_owner }}'
-    state=present
+  lineinfile:
+    dest: "/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf"
+    regexp: '^;?listen.owner'
+    line: "listen.owner = {{ php_owner }}"
+    state: present
 
 - name: Set permissions on socket - group
-  lineinfile: >
-    dest=/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf
-    regexp='^;?listen.group'
-    line='listen.group = {{ php_group }}'
-    state=present
+  lineinfile:
+    dest: "/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf"
+    regexp: '^;?listen.group'
+    line: 'listen.group = {{ php_group }}'
+    state: present
 
 - name: Set permissions on socket - mode
-  lineinfile: >
-    dest=/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf
-    regexp='^;?listen.mode'
-    line='listen.mode = 0660'
-    state=present
+  lineinfile:
+    dest: "/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf"
+    regexp: '^;?listen.mode'
+    line: 'listen.mode = 0660'
+    state: present
   notify: restart php7-fpm
 
-# vim:ft=ansible :
+# cli
+#####
+
+- name: Ensure timezone is set in cli php.ini
+  lineinfile:
+    dest: "/etc/php/{{ apt_php_version }}/cli/php.ini"
+    regexp: "date.timezone ="
+    line: "date.timezone = {{ php_timezone }}"
+
+- name: Enabling opcache cli
+  lineinfile:
+    dest: /etc/php/{{ apt_php_version }}/cli/php.ini
+    regexp: ";?opcache.enable_cli="
+    line: "opcache.enable_cli=1"
+
+# vim: ft=ansible :
