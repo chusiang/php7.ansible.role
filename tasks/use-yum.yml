@@ -45,4 +45,11 @@
   when: yum_php_packages is defined
   notify: restart php7-fpm on centos
 
+- name: Start php7-fpm on centos
+  become: true
+  service:
+    name: php-fpm
+    state: started
+    enabled: yes
+
 # vim: ft=ansible :

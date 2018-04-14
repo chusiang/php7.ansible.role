@@ -49,4 +49,11 @@
   notify:
     - restart php7-fpm
 
+- name: Start php7-fpm
+  become: true
+  service:
+    name: "php{{ apt_php_version }}-fpm"
+    state: started
+    enabled: yes
+
 # vim: ft=ansible :
