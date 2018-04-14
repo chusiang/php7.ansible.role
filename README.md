@@ -1,4 +1,4 @@
-# Ansible Role: PHP7 (PHP-FPM)
+# Ansible Role: PHP 7 (PHP-FPM)
 
 [![Build Status](https://travis-ci.org/chusiang/php7.ansible.role.svg?branch=master)](https://travis-ci.org/chusiang/php7.ansible.role) [![Release](https://img.shields.io/github/release/chusiang/php7.ansible.role.svg)](https://github.com/chusiang/php7.ansible.role/releases) [![Star](https://img.shields.io/github/stars/chusiang/php7.ansible.role.svg?style=flat&label=star)](https://github.com/chusiang/php7.ansible.role/stargazers) [![Fork](https://img.shields.io/github/forks/chusiang/php7.ansible.role.svg?style=flat&label=fork)](https://github.com/chusiang/php7.ansible.role/network) [![License](https://img.shields.io/dub/l/vibe-d.svg)](https://github.com/chusiang/php7.ansible.role/blob/master/LICENSE) [![Ansible Galaxy](https://img.shields.io/badge/role-php7-blue.svg)](https://galaxy.ansible.com/chusiang/php7/) [![Docker Hub](https://img.shields.io/badge/docker-php7-blue.svg)](https://hub.docker.com/r/chusiang/php7/) [![](https://images.microbadger.com/badges/image/chusiang/php7.svg)](https://microbadger.com/images/chusiang/php7 "Get your own image badge on microbadger.com")
 
@@ -6,11 +6,12 @@ An Ansible role of Deploy PHP 7 (php-fpm) for Nginx. (forked from [itcraftsmanpl
 
 * Current PHP7 version:
 
- * Debian & Ubuntu: **7.0.6**
+ * Debian & Ubuntu: **7.0.29**
  * CentOS: **7.0.5**
 
 * Support Linux distributions:
 
+ 1. Ubuntu 16.04 (xenial)
  1. Ubuntu 14.04 (trusty)
  1. Debian 8 (jessie)
  1. Debian 9 (stretch)
@@ -175,10 +176,10 @@ This repository contains Dockerized [Ansible](https://github.com/ansible/ansible
     
 ## License
 
-MIT License (2015 - 2017). See the [LICENSE file](LICENSE) for details.
+MIT License (2015 - 2018). See the [LICENSE file](LICENSE) for details.
 
 ## Author Information
 
 1. [itcraftsmanpl (Arkadiusz Kondas)](http://itcraftsman.pl/)
-1. [chusiang (Chu-Siang Lai)](http://note.drx.tw)
+1. [chusiang (Chu-Siang Lai)](https://note.drx.tw)
 

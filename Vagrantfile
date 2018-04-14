@@ -8,6 +8,10 @@ instances = [
     :image  => "ubuntu/trusty64"
   },
   {
+    :name   => "ubuntu1604",
+    :image  => "ubuntu/xenial64"
+  },
+  {
     :name   => "debian8",
     :image  => "debian/jessie64"
   },
@@ -41,6 +45,14 @@ Vagrant.configure("2") do |config|
 
       node.vm.provider "virtualbox" do |vb|
         vb.linked_clone = true
+      end
+
+      # Only for Ubuntu 16.04.
+      if ( instance[:name].to_s == "ubuntu1604" )
+        node.vm.provision "shell",
+          inline: "sudo sed -i 's/archive.ubuntu.com/free.nchc.org.tw/g' /etc/apt/sources.list"
+        node.vm.provision "shell",
+          inline: "sudo apt update && sudo apt install -y python"
       end
 
       node.vm.provision "ansible" do |ansible|

@@ -9,14 +9,12 @@ before_install:
 
   - echo "==> Build with Docker ..."
   - docker build -f tests/Dockerfile.ubuntu1404 -t php7:ubuntu1404 . | tee tests/output.ubuntu14.04.log
-  - docker build -f tests/Dockerfile.debian8    -t php7:debian8    . | tee tests/output.debian8.log
-  - docker build -f tests/Dockerfile.centos6    -t php7:centos6    . | tee tests/output.centos6.log
+  - docker build -f tests/Dockerfile.ubuntu1604 -t php7:ubuntu1604 . | tee tests/output.ubuntu16.04.log
 
 script:
   - echo "==> Run Test case ..."
   - grep '00:00:00 php-fpm7.0' tests/output.ubuntu14.04.log
-  - grep '00:00:00 php-fpm7.0' tests/output.debian8.log
-  - grep '00:00:00 php-fpm'    tests/output.centos6.log
+  - grep '00:00:00 php-fpm7.0' tests/output.ubuntu16.04.log
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

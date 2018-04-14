@@ -19,5 +19,5 @@ run:
 	vagrant provision
 
 clean:
-	rm -f setup.retry builds/output.*
+	rm -f setup.retry builds/output.*.log ubuntu-xenial-16.04-cloudimg-console.log
 	vagrant destroy -f

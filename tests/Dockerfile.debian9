@@ -1,6 +1,6 @@
 # Dockerfile for building image that contains software stack provisioned by Ansible.
 
-FROM williamyeh/ansible:debian8-onbuild
+FROM williamyeh/ansible:debian9-onbuild
 MAINTAINER Chu-Siang Lai <chusiang@drx.tw>
 
 # Run playbook.

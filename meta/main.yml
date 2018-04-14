@@ -4,11 +4,12 @@ galaxy_info:
   author: chusiang
   description: Deploy PHP 7 (php-fpm) for nginx on Ubuntu, Debian and CentOS. (forked from itcraftsmanpl.php7)
   license: MIT
-  min_ansible_version: 1.9
+  min_ansible_version: 2.4
   platforms:
     - name: Ubuntu
       versions:
       - trusty
+      - xenial
     - name: Debian
       versions:
       - jessie
@@ -24,4 +25,3 @@ galaxy_info:
     - nginx
 
 dependencies: []
-

@@ -7,3 +7,4 @@ ansible.cfg
 # docker build
 builds/*/output.log
 tests/output*.log
+ubuntu-xenial-16.04-cloudimg-console.log
