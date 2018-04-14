@@ -1,69 +1,55 @@
 # -*- mode: ruby -*-
+
+DOMAIN = "php7.local"
+
+instances = [
+  {
+    :name   => "ubuntu1404",
+    :image  => "ubuntu/trusty64"
+  },
+  {
+    :name   => "debian8",
+    :image  => "debian/jessie64"
+  },
+  {
+    :name   => "debian9",
+    :image  => "debian/stretch64"
+  },
+  {
+    :name   => "centos6",
+    :image  => "bento/centos-6.9"
+  },
+  {
+    :name   => "centos7",
+    :image  => "bento/centos-7.4"
+  }
+]
+
+# Main
+######
+
 Vagrant.configure("2") do |config|
 
-  # Ubuntu
-  config.vm.define "ubuntu1404", primary: true do |node|
-    node.vm.box = "ubuntu/trusty64"
-    node.vm.hostname = "ubuntu1404.php7.local"
-    node.vm.provider "virtualbox" do |vb|
-      vb.linked_clone = true
-    end
-    node.vm.provision "ansible" do |ansible|
-      ansible.playbook = "setup.yml"
-      ansible.become = true
-    end
-  end
+  # Loop by each.
+  instances.each do |instance|
 
-  # Debian
-  config.vm.define "debian8" do |node|
-    node.vm.box = "debian/jessie64"
-    node.vm.hostname = "debian8.php7.local"
-    node.vm.provider "virtualbox" do |vb|
-      vb.linked_clone = true
-    end
-    node.vm.provision "ansible" do |ansible|
-      ansible.playbook = "setup.yml"
-      ansible.become = true
-    end
-  end
+    config.vm.define instance[:name] do |node|
+      node.vm.box = instance[:image].to_s
 
-  config.vm.define "debian9" do |node|
-    node.vm.box = "debian/stretch64"
-    node.vm.hostname = "debian9.php7.local"
-    node.vm.provider "virtualbox" do |vb|
-      vb.linked_clone = true
-    end
-    node.vm.provision "ansible" do |ansible|
-      ansible.playbook = "setup.yml"
-      ansible.become = true
-    end
-  end
+      # hostname = <instance name>.<DOMAIN>
+      node.vm.hostname = instance[:name].to_s + "." + DOMAIN
 
-  # CentOS
-  config.vm.define "centos6" do |node|
-    node.vm.box = "bento/centos-6.7"
-    node.vm.hostname = "centos6.php7.local"
-    node.vm.provider "virtualbox" do |vb|
-      vb.linked_clone = true
-    end
-    node.vm.provision "ansible" do |ansible|
-      ansible.playbook = "setup.yml"
-      ansible.become = true
-    end
-  end
+      node.vm.provider "virtualbox" do |vb|
+        vb.linked_clone = true
+      end
 
-  config.vm.define "centos7" do |node|
-    node.vm.box = "bento/centos-7.3"
-    node.vm.hostname = "centos7.php7.local"
-    node.vm.provider "virtualbox" do |vb|
-      vb.linked_clone = true
+      node.vm.provision "ansible" do |ansible|
+        ansible.playbook = "setup.yml"
+        ansible.become = true
+      end
     end
-    node.vm.provision "ansible" do |ansible|
-      ansible.playbook = "setup.yml"
-      ansible.become = true
-    end
-  end
 
+  end
 end
 
 # vi: set ft=ruby :
