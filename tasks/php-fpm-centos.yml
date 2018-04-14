@@ -1,80 +1,83 @@
 #!/usr/bin/env ansible-playbook
-
 ---
-
-- debug: msg="==> Setting phg-fpm on CentOS system"
 
 # Setting  PHP7.
 - name: create socket directory for CentOS 6
-  file: path=/run/php-fpm/ state=directory mode=0755
+  become: true
+  file:
+    path: /run/php-fpm/
+    state: directory
+    mode: 0755
   when: ansible_distribution_major_version == "6"
 
 # setting the php.ini .
 - name: Set the php.ini
+  become: true
   template:
     src: templates/php.ini.centos.j2
     dest: /etc/php.ini
     owner: root
     group: root
-    mode: 644
+    mode: 0644
   notify: restart php7-fpm on centos
 
 # setting the www.conf .
 - name: Disable port listen
-  lineinfile: >
-    dest=/etc/php-fpm.d/www.conf
-    regexp='^;?listen = 127.0.0.1:9000'
-    line=';listen = 127.0.0.1:9000'
-    state=present
+  become: true
+  lineinfile:
+    dest: /etc/php-fpm.d/www.conf
+    regexp: '^;?listen = 127.0.0.1:9000'
+    line: ';listen = 127.0.0.1:9000'
   notify: restart php7-fpm on centos
 
 - name: Enable socket listen
-  lineinfile: >
-    dest=/etc/php-fpm.d/www.conf
-    regexp='^;?listen = /run/php-fpm/www.sock'
-    line='listen = {{ centos_php_fastcgi_listen }}'
-    state=present
+  become: true
+  lineinfile:
+    dest: /etc/php-fpm.d/www.conf
+    regexp: '^;?listen = /run/php-fpm/www.sock'
+    line: 'listen = {{ centos_php_fastcgi_listen }}'
   notify: restart php7-fpm on centos
 
 - name: Set permissions on socket - owner
-  lineinfile: >
-    dest=/etc/php-fpm.d/www.conf
-    regexp='^;?listen.owner'
-    line='listen.owner = {{ php_owner }}'
-    state=present
+  become: true
+  lineinfile:
+    dest: /etc/php-fpm.d/www.conf
+    regexp: '^;?listen.owner'
+    line: 'listen.owner = {{ php_owner }}'
   notify: restart php7-fpm on centos
 
 - name: Set permissions on socket - group
-  lineinfile: >
-    dest=/etc/php-fpm.d/www.conf
-    regexp='^;?listen.group'
-    line='listen.group = {{ php_group }}'
-    state=present
+  become: true
+  lineinfile:
+    dest: /etc/php-fpm.d/www.conf
+    regexp: '^;?listen.group'
+    line: 'listen.group = {{ php_group }}'
   notify: restart php7-fpm on centos
 
 - name: Set permissions on socket - mode
-  lineinfile: >
-    dest=/etc/php-fpm.d/www.conf
-    regexp='^;?listen.mode'
-    line='listen.mode = 0660'
-    state=present
+  become: true
+  lineinfile:
+    dest: /etc/php-fpm.d/www.conf
+    regexp: '^;?listen.mode'
+    line: 'listen.mode = 0660'
   notify: restart php7-fpm on centos
 
 - name: Set listen acl users
-  lineinfile: >
-    dest=/etc/php-fpm.d/www.conf
-    state=present
-    regexp='^;?listen.acl_users = nginx'
-    line='listen.acl_users = nginx'
+  become: true
+  lineinfile:
+    dest: /etc/php-fpm.d/www.conf
+    regexp: '^;?listen.acl_users = nginx'
+    line: 'listen.acl_users = nginx'
   notify: restart php7-fpm on centos
 
 # setting the php-fpm.conf .
 - name: Setting the php-fpm fastcgi server of nginx
+  become: true
   template:
     src: templates/php-fpm.conf.j2
     dest: /etc/nginx/conf.d/php-fpm.conf
     owner: root
     group: root
-    mode: 644
+    mode: 0644
 
-# vim:ft=ansible :
+# vim: ft=ansible :

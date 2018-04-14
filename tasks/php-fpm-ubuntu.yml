@@ -6,47 +6,52 @@
 
 # setting the php.ini .
 - name: Set the php.ini
+  become: true
   template:
     src: templates/php.ini.ubuntu.j2
     dest: /etc/php/{{ apt_php_version }}/fpm/php.ini
     owner: root
     group: root
-    mode: 644
+    mode: 0644
   notify: restart php7-fpm
 
 # setting the www.conf .
 - name: Set permissions on socket - owner
+  become: true
   lineinfile:
     dest: "/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf"
     regexp: '^;?listen.owner'
     line: "listen.owner = {{ php_owner }}"
-    state: present
+  notify: restart php7-fpm
 
 - name: Set permissions on socket - group
+  become: true
   lineinfile:
     dest: "/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf"
     regexp: '^;?listen.group'
     line: 'listen.group = {{ php_group }}'
-    state: present
+  notify: restart php7-fpm
 
 - name: Set permissions on socket - mode
+  become: true
   lineinfile:
     dest: "/etc/php/{{ apt_php_version }}/fpm/pool.d/www.conf"
     regexp: '^;?listen.mode'
     line: 'listen.mode = 0660'
-    state: present
   notify: restart php7-fpm
 
 # cli
 #####
 
 - name: Ensure timezone is set in cli php.ini
+  become: true
   lineinfile:
     dest: "/etc/php/{{ apt_php_version }}/cli/php.ini"
     regexp: "date.timezone ="
     line: "date.timezone = {{ php_timezone }}"
 
 - name: Enabling opcache cli
+  become: true
   lineinfile:
     dest: /etc/php/{{ apt_php_version }}/cli/php.ini
     regexp: ";?opcache.enable_cli="
