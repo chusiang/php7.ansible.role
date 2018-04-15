@@ -10,23 +10,33 @@ before_install:
 jobs:
   include:
 
-    - stage: check
+    # Stage of Syntax Check
+    # =====================
+
+    - stage: Syntax Check
       script:
         - echo "==> Syntax Check on Ansible 2.4 ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
-        - echo "==> Lint Check on Ansible 2.4 ..."
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && ansible-lint setup.yml"
-
-    - stage: check
+    - stage: Syntax Check
       script:
         - echo "==> Syntax Check on Ansible 2.5 ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
+    # Stage of Lint Check
+    # =====================
+
+    - stage: Lint Check
+      script:
+        - echo "==> Lint Check on Ansible 2.4 ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && ansible-lint setup.yml"
+
+    - stage: Lint Check
+      script:
         - echo "==> Lint Check on Ansible 2.5 ..."
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
-    - stage: build
+    - stage: Build
       script:
         - echo "==> Build on Ubuntu 14.04 ..."
         - docker build -f tests/Dockerfile.ubuntu1404 -t php7:ubuntu1404 . | tee tests/output.ubuntu14.04.log
@@ -34,12 +44,12 @@ jobs:
         - echo "==> Run test case on Ubuntu 14.04 ..."
         - grep '00:00:00 php-fpm7.0' tests/output.ubuntu14.04.log
 
-    - stage: build
+    - stage: Build
       script:
         - echo "==> Build on Ubuntu 16.04 ..."
         - docker build -f tests/Dockerfile.ubuntu1604 -t php7:ubuntu1604 . | tee tests/output.ubuntu16.04.log
 
-        - echo "==> Run test case on Ubuntu 14.04 ..."
+        - echo "==> Run test case on Ubuntu 16.04 ..."
         - grep '00:00:00 php-fpm7.0' tests/output.ubuntu16.04.log
 
 notifications:
