@@ -27,7 +27,7 @@
     name: "{{ item }}"
   with_items:
     - "http://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
-    -  "https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
+    - "https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
 
 - name: Upgrade all packages
   become: true

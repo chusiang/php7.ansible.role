@@ -1,5 +1,5 @@
 language: bash
-sudo: true
+sudo: required
 services:
   - docker
 
@@ -7,14 +7,34 @@ before_install:
   - docker info
   - docker version
 
-  - echo "==> Build with Docker ..."
-  - docker build -f tests/Dockerfile.ubuntu1404 -t php7:ubuntu1404 . | tee tests/output.ubuntu14.04.log
-  - docker build -f tests/Dockerfile.ubuntu1604 -t php7:ubuntu1604 . | tee tests/output.ubuntu16.04.log
+jobs:
+  include:
 
-script:
-  - echo "==> Run Test case ..."
-  - grep '00:00:00 php-fpm7.0' tests/output.ubuntu14.04.log
-  - grep '00:00:00 php-fpm7.0' tests/output.ubuntu16.04.log
+    - stage: check
+      script:
+        - echo "==> Syntax Check on Ansible 2.4 ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+
+    - stage: check
+      script:
+        - echo "==> Syntax Check on Ansible 2.5 ..."
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+
+    - stage: build
+      script:
+        - echo "==> Build on Ubuntu 14.04 ..."
+        - docker build -f tests/Dockerfile.ubuntu1404 -t php7:ubuntu1404 . | tee tests/output.ubuntu14.04.log
+
+        - echo "==> Run test case on Ubuntu 14.04 ..."
+        - grep '00:00:00 php-fpm7.0' tests/output.ubuntu14.04.log
+
+    - stage: build
+      script:
+        - echo "==> Build on Ubuntu 16.04 ..."
+        - docker build -f tests/Dockerfile.ubuntu1604 -t php7:ubuntu1604 . | tee tests/output.ubuntu16.04.log
+
+        - echo "==> Run test case on Ubuntu 14.04 ..."
+        - grep '00:00:00 php-fpm7.0' tests/output.ubuntu16.04.log
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

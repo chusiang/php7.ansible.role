@@ -8,8 +8,8 @@
   vars_files:
     - defaults/main.yml
 
-  roles:
-    - chusiang.vim-and-vi-mode
+  #roles:
+  #  - chusiang.vim-and-vi-mode
 
   tasks:
     - name: Include vars for debian
