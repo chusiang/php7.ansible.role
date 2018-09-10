@@ -8,6 +8,9 @@
 # just for debug.
 debug_mode: false
 
+#disable exposing php version
+php_expose: 'Off'
+
 # allow_url_fopen
 #   Default Value: On
 php_allow_url_fopen: "Off"
