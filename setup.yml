@@ -23,4 +23,4 @@
     - name: Include handlers tasks
       import_tasks: handlers/main.yml
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :

@@ -15,4 +15,4 @@
   import_tasks: configure.yml
   tags: config
 
-## vim: ft=ansible :
+## vim: ft=yaml.ansible :

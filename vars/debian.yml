@@ -1,6 +1,7 @@
 ---
 #!/usr/bin/env ansible-playbook
-## vim:ft=ansible :
 
 php_owner: www-data
 php_group: www-data
+
+# vim: ft=yaml.ansible :

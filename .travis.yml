@@ -16,11 +16,13 @@ jobs:
     - stage: Syntax check
       script:
         - echo "==> Syntax Check on Ansible 2.4 ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
     - stage: Syntax check
       script:
         - echo "==> Syntax Check on Ansible 2.5 ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
     # Stage of Lint check
@@ -29,11 +31,13 @@ jobs:
     - stage: Lint check
       script:
         - echo "==> Lint Check on Ansible 2.4 ..."
+        - docker run --rm -it chusiang/ansible:2.4 ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
     - stage: Lint check
       script:
         - echo "==> Lint Check on Ansible 2.5 ..."
+        - docker run --rm -it chusiang/ansible:2.5 ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
     # Stage of Build

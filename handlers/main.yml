@@ -13,3 +13,5 @@
     name: php-fpm
     state: restarted
     enabled: yes
+
+# vim: ft=yaml.ansible :

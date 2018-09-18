@@ -19,4 +19,4 @@
   include_tasks: php-fpm-centos.yml
   when: ansible_pkg_mgr == "yum"
 
-# vim:ft=ansible :
+# vim: ft=yaml.ansible :
