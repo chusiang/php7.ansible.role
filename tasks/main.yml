@@ -13,4 +13,4 @@
   import_tasks: verify.yml
   tags: verify
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :

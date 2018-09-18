@@ -80,4 +80,4 @@
     group: root
     mode: 0644
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :

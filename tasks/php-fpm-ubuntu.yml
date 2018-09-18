@@ -57,4 +57,4 @@
     regexp: ";?opcache.enable_cli="
     line: "opcache.enable_cli=1"
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :

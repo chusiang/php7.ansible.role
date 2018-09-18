@@ -10,4 +10,4 @@
   debug:
     msg: "{{ php_process.stdout_lines }}"
 
-# vim: ft=ansible :
+# vim: ft=yaml.ansible :
