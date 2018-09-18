@@ -16,7 +16,7 @@ An Ansible role of Deploy PHP 7 (php-fpm) for Nginx. (forked from [itcraftsmanpl
   1. Debian 8 (jessie)
   1. Debian 9 (stretch)
   1. CentOS 6
-  1. CentOS 7  
+  1. CentOS 7
 
 ## Requirements
 
@@ -41,6 +41,11 @@ php_allow_url_fopen: "Off"
 php_disable_functions: "exec,passthru,shell_exec,system,proc_open,popen"
 php_display_errors: "Off"
 php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+
+# disable exposing php version.
+#   Default Value: On
+php_expose_php: 'Off'
+
 php_memory_limit: "1024M"
 php_opcache_enable: 1
 php_opcache_revalidate_freq: 0
@@ -65,7 +70,7 @@ debian_php7_apt_repo: "http://packages.dotdeb.org"
 debian_php7_apt_key: "https://www.dotdeb.org/dotdeb.gpg"
 ubuntu_php7_ppa_repo: "ppa:ondrej/php"
 
-# A switch for use official apt repository.
+# A switch for enable or disable the third-party repository.
 #
 #  true: use the official repository.
 #  false: use the third-party repository.
@@ -174,7 +179,7 @@ This repository contains Dockerized [Ansible](https://github.com/ansible/ansible
     Copyright (c) 1997-2016 The PHP Group
     Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies
         with Zend OPcache v7.0.6-dev, Copyright (c) 1999-2016, by Zend Technologies
-    
+
 ## License
 
 MIT License (2015 - 2018). See the [LICENSE file](LICENSE) for details.

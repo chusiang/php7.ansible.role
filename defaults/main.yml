@@ -8,9 +8,6 @@
 # just for debug.
 debug_mode: false
 
-#disable exposing php version
-php_expose: 'Off'
-
 # allow_url_fopen
 #   Default Value: On
 php_allow_url_fopen: "Off"
@@ -18,6 +15,11 @@ php_allow_url_fopen: "Off"
 php_disable_functions: "exec,passthru,shell_exec,system,proc_open,popen"
 php_display_errors: "Off"
 php_error_reporting: "E_ALL & ~E_DEPRECATED & ~E_STRICT"
+
+# disable exposing php version.
+#   Default Value: On
+php_expose_php: 'Off'
+
 php_memory_limit: "1024M"
 php_opcache_enable: 1
 php_opcache_revalidate_freq: 0
@@ -87,4 +89,4 @@ yum_php_packages:
 centos_php_fastcgi_listen: "/run/php-fpm/www.sock"
 centos_nginx_fastcgi_server: "unix:{{ centos_php_fastcgi_listen }}"
 
-# vim:ft=ansible :
+# vim: ft=yaml.ansible :
