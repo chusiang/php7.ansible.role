@@ -16,16 +16,14 @@
 - name: Install requires package with yum
   become: true
   yum:
-    name: "{{ item }}"
-  with_items:
+    name:
     - libselinux-python
     - epel-release
 
 - name: Install the remi and ius repo from remote repo
   become: true
   yum:
-    name: "{{ item }}"
-  with_items:
+    name:
     - "http://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
     - "https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
 
