@@ -31,6 +31,22 @@ jobs:
         - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
+    - stage: Syntax check
+      env:
+        - ANSIBLE_VERSION="2.6"
+      script:
+        - echo "==> Syntax Check on Ansible $ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+
+    - stage: Syntax check
+      env:
+        - ANSIBLE_VERSION="2.7"
+      script:
+        - echo "==> Syntax Check on Ansible $ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+
     # Stage of Lint check
     # ===================
 
@@ -45,6 +61,22 @@ jobs:
     - stage: Lint check
       env:
         - ANSIBLE_VERSION="2.5"
+      script:
+        - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-lint setup.yml"
+
+    - stage: Lint check
+      env:
+        - ANSIBLE_VERSION="2.6"
+      script:
+        - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-lint setup.yml"
+
+    - stage: Lint check
+      env:
+        - ANSIBLE_VERSION="2.7"
       script:
         - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
         - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
