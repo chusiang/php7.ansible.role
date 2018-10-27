@@ -1,3 +1,5 @@
+---
+
 language: bash
 sudo: required
 services:
@@ -14,50 +16,62 @@ jobs:
     # =====================
 
     - stage: Syntax check
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
-        - echo "==> Syntax Check on Ansible 2.4 ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+        - echo "==> Syntax Check on Ansible $ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
     - stage: Syntax check
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
-        - echo "==> Syntax Check on Ansible 2.5 ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+        - echo "==> Syntax Check on Ansible $ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
     # Stage of Lint check
     # ===================
 
     - stage: Lint check
+      env:
+        - ANSIBLE_VERSION="2.4"
       script:
-        - echo "==> Lint Check on Ansible 2.4 ..."
-        - docker run --rm -it chusiang/ansible:2.4 ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.4 /bin/sh -c "cd /srv && ansible-lint setup.yml"
+        - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
     - stage: Lint check
+      env:
+        - ANSIBLE_VERSION="2.5"
       script:
-        - echo "==> Lint Check on Ansible 2.5 ..."
-        - docker run --rm -it chusiang/ansible:2.5 ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:2.5 /bin/sh -c "cd /srv && ansible-lint setup.yml"
+        - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
     # Stage of Build
     # ==============
 
     - stage: Build
+      env:
+        - OS="ubuntu1404"
       script:
-        - echo "==> Build on Ubuntu 14.04 ..."
-        - docker build -f tests/Dockerfile.ubuntu1404 -t php7:ubuntu1404 . | tee tests/output.ubuntu14.04.log
+        - echo "==> Build on $OS ..."
+        - docker build -f tests/Dockerfile.$OS -t php7:$OS . | tee tests/output.$OS.log
 
-        - echo "==> Run test case on Ubuntu 14.04 ..."
-        - grep '00:00:00 php-fpm7.0' tests/output.ubuntu14.04.log
+        - echo "==> Run test case on $OS ..."
+        - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
 
     - stage: Build
+      env:
+        - OS="ubuntu1604"
       script:
-        - echo "==> Build on Ubuntu 16.04 ..."
-        - docker build -f tests/Dockerfile.ubuntu1604 -t php7:ubuntu1604 . | tee tests/output.ubuntu16.04.log
+        - echo "==> Build on $OS ..."
+        - docker build -f tests/Dockerfile.$OS -t php7:$OS . | tee tests/output.$OS.log
 
-        - echo "==> Run test case on Ubuntu 16.04 ..."
-        - grep '00:00:00 php-fpm7.0' tests/output.ubuntu16.04.log
+        - echo "==> Run test case on $OS ..."
+        - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
