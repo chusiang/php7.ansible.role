@@ -3,7 +3,7 @@
 #  Author: Chu-Siang Lai / chusiang (at) drx.tw
 #  Blog: http://note.drx.tw
 #  Filename: use-yum.yml
-#  Modified: 2018-04-15 01:18
+#  Modified: 2018-10-28 03:29
 #  Description: Setup PHP7 on CentOS 6, 7.
 #  Reference:
 #
@@ -37,9 +37,8 @@
 - name: Install PHP 7 Packages
   become: true
   yum:
-    name: "{{ item }}"
+    name: "{{ yum_php_packages }}"
     enablerepo: ius
-  with_nested: "{{ yum_php_packages }}"
   when: yum_php_packages is defined
   notify: restart php7-fpm on centos
 
