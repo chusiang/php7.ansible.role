@@ -45,6 +45,10 @@
   apt:
     name: "{{ item }}"
   with_nested: "{{ apt_php_packages }}"
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
   when: apt_php_packages is defined
   notify:
     - restart php7-fpm

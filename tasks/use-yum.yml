@@ -17,15 +17,23 @@
   become: true
   yum:
     name:
-    - libselinux-python
-    - epel-release
+      - libselinux-python
+      - epel-release
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
 
 - name: Install the remi and ius repo from remote repo
   become: true
   yum:
     name:
-    - "http://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
-    - "https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
+      - "http://rpms.remirepo.net/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
+      - "https://centos{{ ansible_distribution_major_version }}.iuscommunity.org/ius-release.rpm"
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
 
 - name: Upgrade all packages
   become: true
@@ -39,6 +47,10 @@
   yum:
     name: "{{ yum_php_packages }}"
     enablerepo: ius
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
   when: yum_php_packages is defined
   notify: restart php7-fpm on centos
 
