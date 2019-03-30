@@ -32,12 +32,13 @@
     when:
       - ansible_distribution|lower == "ubuntu"
 
-  when: apt_php_third_party_repo == true
+  when: apt_php_third_party_repo
 
 # Update apt cache.
 - name: Update apt cache
   become: true
-  apt: update_cache=true
+  apt:
+    update_cache: true
 
 # Install PHP7 packages.
 - name: Install php packages
