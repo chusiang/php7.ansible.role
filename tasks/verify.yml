@@ -2,7 +2,9 @@
 ---
 
 - name: Check php-fpm process
-  shell: ps -A | grep php-fpm
+  shell: |
+    set -o pipefail
+    ps -A | grep php-fpm
   register: php_process
   changed_when: false
 
