@@ -11,10 +11,6 @@
 # CentOS
 ########
 
-#- name: delegate to SELINUX handling subtask, if necessary
-#  include: set-selinux.yml
-#  when: php_in_selinux is defined and php_in_selinux == true
-
 - name: "==> Setting php-fpm on RHEL system"
   include_tasks: php-fpm-centos.yml
   when: ansible_pkg_mgr == "yum"
