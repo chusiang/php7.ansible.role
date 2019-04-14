@@ -6,6 +6,10 @@
   become: true
   apt:
     name: python-apt
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
 
 - block:
 
@@ -21,6 +25,10 @@
     become: true
     apt_key:
       url: "{{ debian_php7_apt_key }}"
+    register: task_result
+    until: task_result is success
+    retries: 3
+    delay: 10
     when:
       - ansible_distribution|lower == "debian"
       - ansible_distribution_major_version < "9"
@@ -39,6 +47,10 @@
   become: true
   apt:
     update_cache: true
+  register: task_result
+  until: task_result is success
+  retries: 3
+  delay: 10
 
 # Install PHP7 packages.
 - name: Install php packages
