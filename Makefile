@@ -1,12 +1,14 @@
 .PHONY: main init check boot run clean
 
-main: check lint_check
+main: check
 
 init:
 	if [ ! -d "ansible-retry" ]; then mkdir "ansible-retry"; fi
 	ansible-galaxy install -f -p roles -r requirements.yml
 
-check:
+check: syntax_check lint_check
+
+syntax_check:
 	ansible-playbook --syntax-check setup*.yml
 
 lint_check:
