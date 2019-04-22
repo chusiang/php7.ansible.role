@@ -20,6 +20,6 @@ MAINTAINER Chu-Siang Lai <chusiang.lai@gmail.com>
 RUN sed -i -e 's/exit\s\s*101/exit 0/' /usr/sbin/policy-rc.d
 
 ENV PLAYBOOK setup.yml
-RUN ansible-playbook-wrapper -vvv
+RUN ansible-playbook-wrapper -v
 
 VOLUME [ "/data" ]
