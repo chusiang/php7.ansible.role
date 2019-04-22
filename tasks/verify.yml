@@ -2,10 +2,12 @@
 ---
 
 - name: Check php-fpm process
-  shell: |
-    set -o pipefail
+  shell: >
+    set -o pipefail && \
     ps -A | grep php-fpm
   register: php_process
+  args:
+    executable: /bin/bash
   changed_when: false
 
 - name: Print php-fpm process
