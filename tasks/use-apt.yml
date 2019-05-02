@@ -5,7 +5,9 @@
 - name: Install requires package for apt module
   become: true
   apt:
-    name: python-apt
+    name:
+      - python-apt
+      - software-properties-common
   register: task_result
   until: task_result is success
   retries: 3
