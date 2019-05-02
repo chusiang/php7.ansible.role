@@ -105,6 +105,16 @@ jobs:
         - echo "==> Run test case on $OS ..."
         - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
 
+    - stage: Build
+      env:
+        - OS="ubuntu1804"
+      script:
+        - echo "==> Build on $OS ..."
+        - docker build -f tests/Dockerfile.$OS -t php7:$OS . | tee tests/output.$OS.log
+
+        - echo "==> Run test case on $OS ..."
+        - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
+
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
   slack:

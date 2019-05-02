@@ -12,6 +12,10 @@ instances = [
     :image  => "ubuntu/xenial64"
   },
   {
+    :name   => "ubuntu1804",
+    :image  => "ubuntu/bionic64"
+  },
+  {
     :name   => "debian8",
     :image  => "debian/jessie64"
   },
