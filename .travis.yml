@@ -20,32 +20,40 @@ jobs:
         - ANSIBLE_VERSION="2.4"
       script:
         - echo "==> Syntax Check on Ansible $ANSIBLE_VERSION ..."
-        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION
+            ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
+            /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
     - stage: Syntax check
       env:
         - ANSIBLE_VERSION="2.5"
       script:
         - echo "==> Syntax Check on Ansible $ANSIBLE_VERSION ..."
-        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION
+            ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
+            /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
     - stage: Syntax check
       env:
         - ANSIBLE_VERSION="2.6"
       script:
         - echo "==> Syntax Check on Ansible $ANSIBLE_VERSION ..."
-        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION
+            ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
+            /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
     - stage: Syntax check
       env:
         - ANSIBLE_VERSION="2.7"
       script:
         - echo "==> Syntax Check on Ansible $ANSIBLE_VERSION ..."
-        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION
+            ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
+            /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
 
     # Stage of Lint check
     # ===================
@@ -55,32 +63,40 @@ jobs:
         - ANSIBLE_VERSION="2.4"
       script:
         - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
-        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-lint setup.yml"
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION
+            ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
+            /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
     - stage: Lint check
       env:
         - ANSIBLE_VERSION="2.5"
       script:
         - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
-        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-lint setup.yml"
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION
+            ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
+            /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
     - stage: Lint check
       env:
         - ANSIBLE_VERSION="2.6"
       script:
         - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
-        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-lint setup.yml"
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION
+            ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
+            /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
     - stage: Lint check
       env:
         - ANSIBLE_VERSION="2.7"
       script:
         - echo "==> Lint Check on Ansible $ANSIBLE_VERSION ..."
-        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION ansible --version
-        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION /bin/sh -c "cd /srv && ansible-lint setup.yml"
+        - docker run --rm -it chusiang/ansible:$ANSIBLE_VERSION
+            ansible --version
+        - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
+            /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
     # Stage of Build
     # ==============
@@ -90,8 +106,8 @@ jobs:
         - OS="ubuntu1404"
       script:
         - echo "==> Build on $OS ..."
-        - docker build -f tests/Dockerfile.$OS -t php7:$OS . | tee tests/output.$OS.log
-
+        - docker build -f tests/Dockerfile.$OS -t php7:$OS . |
+            tee tests/output.$OS.log
         - echo "==> Run test case on $OS ..."
         - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
 
@@ -100,8 +116,8 @@ jobs:
         - OS="ubuntu1604"
       script:
         - echo "==> Build on $OS ..."
-        - docker build -f tests/Dockerfile.$OS -t php7:$OS . | tee tests/output.$OS.log
-
+        - docker build -f tests/Dockerfile.$OS -t php7:$OS . |
+            tee tests/output.$OS.log
         - echo "==> Run test case on $OS ..."
         - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
 
@@ -110,8 +126,8 @@ jobs:
         - OS="ubuntu1804"
       script:
         - echo "==> Build on $OS ..."
-        - docker build -f tests/Dockerfile.$OS -t php7:$OS . | tee tests/output.$OS.log
-
+        - docker build -f tests/Dockerfile.$OS -t php7:$OS . |
+            tee tests/output.$OS.log
         - echo "==> Run test case on $OS ..."
         - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
 
