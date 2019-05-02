@@ -56,8 +56,7 @@
 - name: Install php packages
   become: true
   apt:
-    name: "{{ item }}"
-  with_nested: "{{ apt_php_packages }}"
+    name: "{{ apt_php_packages }}"
   register: task_result
   until: task_result is success
   retries: 3
