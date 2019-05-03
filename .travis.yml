@@ -1,15 +1,21 @@
 ---
+
 language: bash
 sudo: required
 services:
   - docker
+
 # = Main ======================================================================
+
 before_install:
   - docker info
   - docker version
+
 jobs:
   include:
+
     # - Stage: Syntax check ---------------------------------------------------
+
     - stage: Syntax check
       env:
         - ANSIBLE_VERSION="2.4"
@@ -19,6 +25,7 @@ jobs:
             ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+
     - stage: Syntax check
       env:
         - ANSIBLE_VERSION="2.5"
@@ -28,6 +35,7 @@ jobs:
             ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+
     - stage: Syntax check
       env:
         - ANSIBLE_VERSION="2.6"
@@ -37,6 +45,7 @@ jobs:
             ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+
     - stage: Syntax check
       env:
         - ANSIBLE_VERSION="2.7"
@@ -46,7 +55,9 @@ jobs:
             ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-playbook --syntax-check setup.yml"
+
     # - Stage: Lint check -----------------------------------------------------
+
     - stage: Lint check
       env:
         - ANSIBLE_VERSION="2.4"
@@ -56,6 +67,7 @@ jobs:
             ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-lint setup.yml"
+
     - stage: Lint check
       env:
         - ANSIBLE_VERSION="2.5"
@@ -65,6 +77,7 @@ jobs:
             ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-lint setup.yml"
+
     - stage: Lint check
       env:
         - ANSIBLE_VERSION="2.6"
@@ -74,6 +87,7 @@ jobs:
             ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-lint setup.yml"
+
     - stage: Lint check
       env:
         - ANSIBLE_VERSION="2.7"
@@ -83,7 +97,9 @@ jobs:
             ansible --version
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-lint setup.yml"
+
     # - Stage: Build ----------------------------------------------------------
+
     - stage: Build
       env:
         - OS="ubuntu1404"
@@ -93,6 +109,7 @@ jobs:
             tee tests/output.$OS.log
         - echo "==> Run test case on $OS ..."
         - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
+
     - stage: Build
       env:
         - OS="ubuntu1604"
@@ -102,6 +119,7 @@ jobs:
             tee tests/output.$OS.log
         - echo "==> Run test case on $OS ..."
         - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
+
     - stage: Build
       env:
         - OS="ubuntu1804"
@@ -111,9 +129,12 @@ jobs:
             tee tests/output.$OS.log
         - echo "==> Run test case on $OS ..."
         - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
+
 # = Notification: Ansible Galaxy, Slack =======================================
+
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
   slack:
     secure: SC5RcR4iSFgyrEgLW4FfQlrY/6u1i/PjxSEgP1GR9Yq1EaelMkjajtszN71A0aAqlBe+2aHHmIqffjtP6PcVIIR1UNnbBnzKgEUl3MaYDBa2gD2PDLb2Z2LIDkW3iboIvxMkd3B9xTBJpydMo0qZHTd1pbsMrFj7XnUyiNC6XmgSesaqnXvA0v1uQ7afmROW0VRd+DEC4aIflxTnO6IYt9j7hBZ4+tU251FFLz3zQz1Oe+J95G71RUuBVm+MgjjKnHwTp5wSUVu+jkCljrdEJiww1IRQsSkYPyGvu4W/a5QEGoM5/I8fPdlz03g5KJd4fnGKDku2zJqeDA9iX5fZivhksxhyqyxhT3SA5BBFfgZLr2WhIxOEnZ0FamC7kxYdR7gumJyXrj0wJrTXNn0CHWEjb/rdLcoPskRTwMDnz+0aiv2S0/z2HhAij+MNq+jGJlX6UxfXNtHYXMhs1tz8ATSUy3nwOy8M9GoG69rT87B8uiPbzpxbT46+U35gJhcgiBo1Bs/JM8evYFNfN9fbvqV4T5vttZUI/HAt5f0gjuDqvJFWnNL/P52Ylz+gCAPw/R/AwnInr7b/g4x0oUh8XJ2FvcKkC+RJXZychNoT85IVrBOLFi7ydU37/aPnAZ3ViDZY5c4ZsMVIaHKKAfU9dHRtuNz/vaPabjYJms1zE/I=
+
 # vim: ft=yaml :
