@@ -98,6 +98,16 @@ jobs:
         - docker run --rm -it -v $PWD:/srv chusiang/ansible:$ANSIBLE_VERSION
             /bin/sh -c "cd /srv && ansible-lint setup.yml"
 
+    - stage: Lint check
+      env:
+        - YAMLLINT_VERSION="1.5"
+      script:
+        - echo "==> Lint Check via yamllint v$ANSIBLE_VERSION ..."
+        - docker run --rm -it chusiang/yamllint:$YAMLLINT_VERSION
+            yamllint --version
+        - docker run --rm -v $PWD:/srv chusiang/yamllint:$YAMLLINT_VERSION
+            make yaml_check
+
     # - Stage: Build ----------------------------------------------------------
 
     - stage: Build
