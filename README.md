@@ -11,8 +11,8 @@ An Ansible role of Deploy PHP 7 (php-fpm) for Nginx. (forked from [itcraftsmanpl
 
 * Support Linux distributions:
 
+  1. Ubuntu 18.04 (bionic)
   1. Ubuntu 16.04 (xenial)
-  1. Ubuntu 14.04 (trusty)
   1. Debian 8 (jessie)
   1. Debian 9 (stretch)
   1. CentOS 6
@@ -179,6 +179,10 @@ This repository contains Dockerized [Ansible](https://github.com/ansible/ansible
     Copyright (c) 1997-2016 The PHP Group
     Zend Engine v3.0.0, Copyright (c) 1998-2016 Zend Technologies
         with Zend OPcache v7.0.6-dev, Copyright (c) 1999-2016, by Zend Technologies
+
+## History
+
+* 2019/05/04 Stop support the Ubuntu 14.04. [#24](https://github.com/chusiang/php7.ansible.role/issues/24)
 
 ## License
 
