@@ -118,7 +118,7 @@ jobs:
         - docker build -f tests/Dockerfile.$OS -t php7:$OS . |
             tee tests/output.$OS.log
         - echo "==> Run test case on $OS ..."
-        - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
+        - grep '00:00:00 php-fpm7' tests/output.$OS.log
 
     - stage: Build
       env:
@@ -128,7 +128,7 @@ jobs:
         - docker build -f tests/Dockerfile.$OS -t php7:$OS . |
             tee tests/output.$OS.log
         - echo "==> Run test case on $OS ..."
-        - grep '00:00:00 php-fpm7.0' tests/output.$OS.log
+        - grep '00:00:00 php-fpm7' tests/output.$OS.log
 
 # = Notification: Ansible Galaxy, Slack =======================================
 
