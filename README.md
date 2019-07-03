@@ -6,8 +6,8 @@ An Ansible role of Deploy PHP 7 (php-fpm) for Nginx. (forked from [itcraftsmanpl
 
 * Current PHP7 version:
 
-  * Debian & Ubuntu: **7.0.29**
-  * CentOS: **7.0.28**
+  * Debian & Ubuntu: **7.1.30**
+  * CentOS: **7.1.30**
 
 * Support Linux distributions:
 
@@ -76,8 +76,7 @@ ubuntu_php7_ppa_repo: "ppa:ondrej/php"
 #  false: use the third-party repository.
 apt_php_third_party_repo: true
 
-apt_php_version: "7.0"
-#apt_php_version: "7.1"
+apt_php_version: "7.1"
 
 apt_php_packages:
   - php{{ apt_php_version }}
@@ -96,8 +95,7 @@ apt_php_packages:
 # CentOS #
 ##########
 
-yum_php_version: "70u"
-#yum_php_version: "71w"
+yum_php_version: "71u"
 
 yum_php_packages:
   - php{{ yum_php_version }}-cli
