@@ -15,7 +15,8 @@ lint_check:
 	ansible-lint setup*.yml
 
 yaml_check:
-	find -name "*.yml" -type f -not -path "./roles/*" -exec yamllint -c .yamllint.yaml {} \;
+	find -name "*.yml" -type f -not -path "./roles/*"	\
+		-exec yamllint -c .yamllint.yaml {} \;
 
 boot:
 	vagrant up
@@ -24,5 +25,7 @@ run:
 	vagrant provision
 
 clean:
-	rm -f setup.retry builds/output.*.log ubuntu-xenial-16.04-cloudimg-console.log
+	rm -f setup.retry ansible-retry/*			\
+		builds/output.*.log tests/output.*.log		\
+		ubuntu-*-cloudimg-console.log
 	vagrant destroy -f
