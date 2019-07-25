@@ -1,6 +1,9 @@
 .PHONY: main init check syntax_check lint_check yaml_check travis_check	\
 	boot run clean
 
+# Parser each playbooks with `*.yml`, and no include `requirements*.yml`.
+PLAYBOOKS = $(shell ls *.yml | sed '/requirements/d')
+
 main: check
 
 init:
@@ -10,10 +13,10 @@ init:
 check: syntax_check lint_check yaml_check
 
 syntax_check:
-	ansible-playbook --syntax-check setup*.yml
+	ansible-playbook --syntax-check $(PLAYBOOKS)
 
 lint_check:
-	ansible-lint setup*.yml
+	ansible-lint $(PLAYBOOKS)
 
 yaml_check:
 	find -name "*.yml" -type f -not -path "./roles/*"		\
